@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaze Matrix</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="inputContainer" class="position-absolute top-50 start-50 translate-middle">
+  <button id="startButton" type="button" class="btn btn-primary" onclick="startCheckup()">Start Checkup </button>
+</div>
+
+<div id="matrixContainer" style="display: none;">
+  <h2>Gaze Matrix</h2>
+  <img id = "logo" src=".\Nhs_logo.gif">
+  <div>
+  <table id="matrixTable"  class="table table-bordered table-responsive">
+    <tr>
+      <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;">
+        <select id="cell_0_0" onchange="handleArrowInput(event, 0, 0)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select>
+    </td>
+    <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;">
+        <select id="cell_0_1" onchange="handleArrowInput(event, 0, 1)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;">
+        <select id="cell_0_2" onchange="handleArrowInput(event, 0, 2)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;">
+        <select id="cell_1_0" onchange="handleArrowInput(event, 1, 0)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;"> 
+        <select id="cell_1_1" onchange="handleArrowInput(event, 1, 1)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;"> 
+        <select id="cell_1_2" onchange="handleArrowInput(event, 1, 2)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;">
+        <select id="cell_2_0" onchange="handleArrowInput(event, 2, 0)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;">
+        <select id="cell_2_1" onchange="handleArrowInput(event, 2, 1)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px;"> 
+        <select id="cell_2_2" onchange="handleArrowInput(event, 2, 2)">
+        <option value="">Select an arrow</option>
+        <option value="↑">↑</option>
+        <option value="↓">↓</option>
+        <option value="⭠">⭠</option>
+        <option value="⭢">⭢</option>
+        <option value="⭤">⭤</option>
+        <option value="↺">↺</option>
+        </select></td>
+    </tr>
+  </table>
+</div>
+  <button type="button"  id="submitMatrix" onclick="submitMatrix()" class="btn btn-secondary" style="display: none;">Submit Matrix</button>
+   </div>
+<div id="container"></div>
+<div id="container2" class="position-absolute top-50 start-50 translate-middle"></div>
+   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+// Matrix values array to store amplitude and frequency
+var matrixValues = [];
+
+// Function to initialize the start button
+function initializeStartButton() {
+    var startButton = document.getElementById("startButton");
+    if (startButton) {
+        startButton.addEventListener("click", startCheckup);
+        console.log("Start button initialized.");
+    } else {
+        console.error("Start button not found.");
+    }
+}
+
+// Call the initializeStartButton function when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", initializeStartButton);
+
+// Function to handle starting the checkup
+function startCheckup() {
+    // Show matrix container
+    document.getElementById("inputContainer").style.display = "none";
+    document.getElementById("matrixContainer").style.display = "block";
+    console.log("Inside StartCheckup()");
+    // Set initial cell focus
+    document.getElementById("cell_0_0").disabled = false;
+    document.getElementById("cell_0_0").focus();
+   }
+   console.log(matrixValues)
+
+var currentRow, currentCol, currentArrowInput;
+function handleArrowInput(event, row, col)
+{
+   currentRow = row;
+   currentCol = col;
+    // Store arrow input
+    currentArrowInput = event.target.value;
+
+    console.log("EVENT!!", event.target.value);
+    if (currentArrowInput === "") {
+        alert("Please select an arrow.");
+        return;
+    }
+
+    console.log("Column:", col);
+    console.log("Inside handleArrowInput function, arrow input =", currentArrowInput);
+    document.getElementById("container").innerHTML = '<p>Please select frequency:</p>' +
+                         '<label><input type="radio" name="frequency" value="L"> Low</label><br>' +
+                         '<label><input type="radio" name="frequency" value="M"> Medium</label><br>' +
+                         '<label><input type="radio" name="frequency" value="H"> High</label><br>' +
+                         '<p>Please select amplitude:</p>' +
+                         '<label><input type="radio" name="amplitude" value="L"> Low</label><br>' +
+                         '<label><input type="radio" name="amplitude" value="M"> Medium</label><br>' +
+                         '<label><input type="radio" name="amplitude" value="H"> High</label><br>' +
+                         '<button id="OK" onclick="submitChoice()">OK</button>';
+                        
+     }
+              
+function submitChoice()
+ {
+
+if (currentArrowInput === "") {
+        alert("Please select an arrow.");
+        return;
+}
+var row = currentRow;
+var col = currentCol;
+var arrowInput = currentArrowInput;
+console.log("event.target.value in submitChoice =", event.target.value);
+
+  console.log("Inside submitChoice function");
+  console.log("Row, Col and arrow values are:", row, col, arrowInput);
+  document.getElementById("OK").toggleAttribute('disabled');
+  
+// Retrieve selected frequency
+var freqRadios = document.getElementsByName('frequency');
+var freq;
+for (var i = 0; i < freqRadios.length; i++) {
+    if (freqRadios[i].checked) {
+        freq = freqRadios[i].value;
+        break;
+    }
+}
+console.log(matrixValues)
+// Retrieve selected amplitude
+var ampRadios = document.getElementsByName('amplitude');
+var amp;
+for (var i = 0; i < ampRadios.length; i++) {
+    if (ampRadios[i].checked) {
+        amp = ampRadios[i].value;
+        break;
+    }
+}
+
+    console.log("Freq:", freq);
+    console.log("Amp:", amp);
+    
+    // Ensure both frequency and amplitude are selected
+    if (!freq || !amp) {
+        alert("Please select both frequency and amplitude.");
+        return;
+    }
+    
+    // Store frequency and amplitude values for the current cell
+    matrixValues[row] = matrixValues[row] || [];
+    matrixValues[row][col] = {
+        arrow: currentArrowInput,
+        amplitude: amp,
+        frequency: freq
+    };
+    console.log(matrixValues)
+    // Move focus to the next cell
+    var nextRow = row;
+    var nextCol = (col + 1) % 3;
+    if (nextCol === 0) {
+        nextRow = (row + 1) % 3;
+    }
+    var nextCell = document.getElementById("cell_" + nextRow + "_" + nextCol);
+    if (nextCell) {
+        nextCell.disabled = false;
+        nextCell.focus();
+        
+        // Trigger the change event for the next cell's select element
+        var nextSelect = nextCell.querySelector("select");
+        if (nextSelect) {
+            nextSelect.dispatchEvent(new Event('change'));
+        }
+    }
+    document.getElementById("submitMatrix").style.display = "block";
+    var allCellsFilled = matrixValues.every(function(row) {
+        return row.every(function(cell) {
+        return cell.arrow !== undefined && cell.amplitude !== undefined && cell.frequency !== undefined;
+        });
+    });
+    if (allCellsFilled) {
+        console.log("allCellsFilled? ...yes")
+        document.getElementById("submitMatrix").style.display = "block";
+    }
+}
+console.log(matrixValues)   
+
+function generatePDF() {
+  print();
+  // html2pdf().from(document.body).save("myDocument.pdf");
+  }
+
+function createButton() {
+
+  var btn = document.createElement("BUTTON");
+  btn.className="position-absolute bottom-0 start-50 translate-middle-x";
+  var text = document.createTextNode("Generate PDF");
+  btn.appendChild(text);
+  document.body.appendChild(btn);
+  btn.addEventListener('click', () => {
+  generatePDF();
+  btn.toggleAttribute('disabled');
+  });
+ 
+}
+
+// Function to submit the matrix and display the result
+
+function submitMatrix() {
+  //console.log(matrixValues)
+    document.body.innerHTML = "";
+    // Create button and table
+    console.log("after clear, before table");
+    createButton();
+    console.log("after create button, before table")
+    console.log("matrixValues.length:", matrixValues.length)
+    // Create and populate the table
+    console.log(matrixValues)
+    var div = document.getElementById("container");
+    var table = document.createElement("table");
+   // table.style.borderCollapse = "collapse";
+    table.class = "table table-bordered table-responsive"
+    table.style.width = "60%";
+    //table.style.margin = "auto";
+    //table.style.border = "1px solid black";
+    //table.style.border = "3";
+    table.className = "position-absolute top-50 start-50 translate-middle";
+    console.log(matrixValues)
+  for (var i = 0; i < matrixValues.length; i++) {
+    var row = document.createElement("tr");
+    for (var j = 0; j < matrixValues[i].length; j++) {
+        var cell = document.createElement("td");
+        cell.textContent = matrixValues[i][j].arrow + " (F:" + matrixValues[i][j].frequency + ", A:" + matrixValues[i][j].amplitude + ")";
+        console.log("cell data is:", cell.textContent);
+        row.appendChild(cell);
+    }
+    table.appendChild(row);
+    console.log(matrixValues)
+}
+
+var img = document.createElement("img");
+//img.crossOrigin = 'Anonymous';
+img.src = "Nhs_logo.png";
+img.className="position-absolute top-0 start-50 translate-middle-x";
+console.log(img.src);
+document.body.appendChild(img);
+document.body.appendChild(table);
+
+}
+</script>
+</body>
+</html>
